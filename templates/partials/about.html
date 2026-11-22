@@ -1,0 +1,58 @@
+<!-- ── About section ──────────────────────────────────────────────────────── -->
+<section id="about" class="about section" aria-label="About me">
+  <div class="container">
+    <h2 class="section-title reveal">About <span class="accent">Me</span></h2>
+
+    <div class="about-grid">
+
+      <!-- Photo -->
+      <div class="about-photo reveal">
+        <img
+          src="{{ url_for('static', filename='images/niduka-avatar.jpg') }}"
+          alt="Niduka Thennakoon – portrait photo"
+          width="320"
+          height="320"
+          loading="lazy"
+          class="avatar-img"
+        />
+      </div>
+
+      <!-- Story + facts -->
+      <div class="about-text reveal">
+        <p>
+          <!-- TODO: Write 2–3 sentences about yourself -->
+          I'm a passionate software engineering student at SLIIT with a drive to build products that make a real difference.
+          My journey into tech started with curiosity about how things work under the hood — that curiosity turned into a career.
+        </p>
+        <p>
+          I thrive at the intersection of clean code and great user experience. Whether it's designing a RESTful API or
+          polishing a pixel-perfect UI, I bring the same level of care and craftsmanship to every layer of the stack.
+        </p>
+
+        <!-- Quick facts grid -->
+        <ul class="quick-facts" role="list">
+          <li>
+            <span class="fact-label">📍 Location</span>
+            <span class="fact-value">Sri Lanka</span>
+          </li>
+          <li>
+            <span class="fact-label">🎓 Degree</span>
+            <span class="fact-value">BSc (Hons) Software Engineering – SLIIT</span>
+          </li>
+          <li>
+            <span class="fact-label">💼 Status</span>
+            <span class="fact-value">Open to opportunities</span>
+          </li>
+          <li>
+            <!-- TODO: add your language info -->
+            <span class="fact-label">🌐 Languages</span>
+            <span class="fact-value">English, Sinhala</span>
+          </li>
+        </ul>
+
+        <a href="#contact" class="btn btn-primary" style="margin-top:1.5rem;">Let's Talk</a>
+      </div>
+
+    </div>
+  </div>
+</section>
