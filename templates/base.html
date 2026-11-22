@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Niduka Thennakoon – Associate Software Engineer & CS student at SLIIT, Sri Lanka." />
+
+  <title>{% block title %}Niduka Thennakoon – Software Engineer{% endblock %}</title>
+
+  <!-- Favicon (TODO: replace with your own) -->
+  <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+
+  {% block head_extra %}{% endblock %}
+</head>
+<body>
+
+  <!-- ── Navigation ──────────────────────────────────────── -->
+  {% include "partials/nav.html" %}
+
+  <!-- ── Page content ────────────────────────────────────── -->
+  <main id="main-content">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- ── Footer ──────────────────────────────────────────── -->
+  {% include "partials/footer.html" %}
+
+  <!-- Main JS (defer keeps it non-blocking) -->
+  <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+
+  {% block scripts_extra %}{% endblock %}
+</body>
+</html>

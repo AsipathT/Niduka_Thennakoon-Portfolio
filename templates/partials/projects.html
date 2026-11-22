@@ -1,0 +1,64 @@
+<!-- ── Projects section ───────────────────────────────────────────────────── -->
+<section id="projects" class="projects section" aria-label="Projects">
+  <div class="container">
+    <h2 class="section-title reveal">Featured <span class="accent">Projects</span></h2>
+
+    <!-- Filter buttons -->
+    <div class="project-filters reveal" role="group" aria-label="Filter projects by category">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="web">Web</button>
+      <button class="filter-btn" data-filter="ml">ML / AI</button>
+      <button class="filter-btn" data-filter="mobile">Mobile</button>
+      <!-- TODO: add more categories as needed -->
+    </div>
+
+    <!-- Project cards (rendered from projects.json via Jinja2) -->
+    <div class="projects-grid" id="projects-grid">
+      {% for project in projects %}
+      <article
+        class="project-card reveal"
+        data-category="{{ project.category }}"
+        aria-label="{{ project.title }}"
+      >
+        <div class="project-img-wrapper">
+          <img
+            src="{{ project.image }}"
+            alt="{{ project.title }} screenshot"
+            width="400"
+            height="225"
+            loading="lazy"
+            class="project-img"
+          />
+        </div>
+
+        <div class="project-body">
+          <h3 class="project-title">{{ project.title }}</h3>
+          <p class="project-desc">{{ project.description }}</p>
+
+          <!-- Tech tags -->
+          <ul class="project-tags" role="list" aria-label="Technologies used">
+            {% for tag in project.tags %}
+            <li class="tag">{{ tag }}</li>
+            {% endfor %}
+          </ul>
+
+          <!-- Links -->
+          <div class="project-links">
+            {% if project.github %}
+            <a href="{{ project.github }}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline" aria-label="View {{ project.title }} source on GitHub">
+              GitHub
+            </a>
+            {% endif %}
+            {% if project.live %}
+            <a href="{{ project.live }}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary" aria-label="View {{ project.title }} live demo">
+              Live Demo
+            </a>
+            {% endif %}
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>

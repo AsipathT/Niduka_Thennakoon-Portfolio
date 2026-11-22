@@ -1,0 +1,96 @@
+<!-- ── Contact section ───────────────────────────────────────────────────── -->
+<section id="contact" class="contact section" aria-label="Contact">
+  <div class="container">
+    <h2 class="section-title reveal">Get In <span class="accent">Touch</span></h2>
+    <p class="contact-intro reveal">
+      Have a project idea, an opportunity, or just want to say hello?
+      Drop me a message and I'll get back to you as soon as possible.
+    </p>
+
+    <div class="contact-grid">
+
+      <!-- Contact form -->
+      <form
+        id="contact-form"
+        class="contact-form reveal"
+        novalidate
+        aria-label="Contact form"
+      >
+        <div class="form-group">
+          <label for="name">Your Name <span aria-hidden="true">*</span></label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            autocomplete="name"
+            placeholder="Niduka Thennakoon"
+            aria-required="true"
+          />
+          <span class="field-error" role="alert" aria-live="polite"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address <span aria-hidden="true">*</span></label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            autocomplete="email"
+            placeholder="hello@example.com"
+            aria-required="true"
+          />
+          <span class="field-error" role="alert" aria-live="polite"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message <span aria-hidden="true">*</span></label>
+          <textarea
+            id="message"
+            name="message"
+            rows="5"
+            required
+            placeholder="Tell me about your project or opportunity..."
+            aria-required="true"
+          ></textarea>
+          <span class="field-error" role="alert" aria-live="polite"></span>
+        </div>
+
+        <!-- Form-level status message -->
+        <div id="form-status" role="status" aria-live="polite" class="form-status hidden"></div>
+
+        <button type="submit" class="btn btn-primary" id="submit-btn">
+          <span class="btn-text">Send Message</span>
+          <span class="btn-spinner hidden" aria-hidden="true"></span>
+        </button>
+      </form>
+
+      <!-- Social links sidebar -->
+      <aside class="contact-socials reveal" aria-label="Social and contact links">
+        <ul role="list">
+          <li>
+            <a href="mailto:TODO@gmail.com" class="social-link" aria-label="Send email">
+              <span class="social-icon">✉️</span>
+              <span>TODO: your@email.com</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/NidukaThennakoon" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub (opens in new tab)">
+              <span class="social-icon">🐙</span>
+              <span>github.com/NidukaThennakoon</span>
+            </a>
+          </li>
+          <li>
+            <!-- TODO: replace with real LinkedIn URL -->
+            <a href="https://linkedin.com/in/nidukathennakoon" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn (opens in new tab)">
+              <span class="social-icon">💼</span>
+              <span>linkedin.com/in/nidukathennakoon</span>
+            </a>
+          </li>
+        </ul>
+      </aside>
+
+    </div>
+  </div>
+</section>
