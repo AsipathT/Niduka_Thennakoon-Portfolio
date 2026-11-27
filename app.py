@@ -32,6 +32,8 @@ from pathlib import Path
 from threading import Lock
 
 from dotenv import load_dotenv
+from markupsafe import Markup, escape
+from werkzeug.middleware.proxy_fix import ProxyFix
 from flask import (
     Flask,
     abort,
@@ -88,8 +90,15 @@ logger.info("Required env vars set: %s", _env_presence_summary())
 # ─── Flask app ─────────────────────────────────────────────────────────────────
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "dev-secret-key-change-in-production")
+app.debug = (os.getenv("FLASK_DEBUG", "0") or "").strip().lower() in {"1", "true", "yes", "on"}
 
-if os.getenv("FLASK_ENV", "production") == "development" and not _is_smtp_configured():
+# Enable ProxyFix only when TRUST_PROXY=true so rate limiting uses the real client IP.
+_trust_proxy = (os.getenv("TRUST_PROXY", "false") or "").strip().lower() == "true"
+if _trust_proxy:
+    app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
+logger.info("ProxyFix enabled: %s", _trust_proxy)
+
+if app.debug and not _is_smtp_configured():
     logger.warning(
         "SMTP is not configured (missing or placeholder MAIL_USERNAME / MAIL_PASSWORD). "
         "Contact form emails will fall back to data/messages_failed.jsonl."
@@ -168,6 +177,26 @@ def public_projects(domain_filter: str | None = None) -> list[dict]:
 # 3.  CONTEXT PROCESSOR  (injects site_config into every template)
 # ==============================================================================
 
+def is_todo(value: object) -> bool:
+    """Return True if value is a string starting with 'TODO'."""
+    return isinstance(value, str) and value.lstrip().startswith("TODO")
+
+
+@app.template_filter("todo")
+def render_todo(value: object) -> str | Markup:
+    """
+    Hide any string starting with 'TODO' in production (app.debug is False),
+    and highlight it with a <mark class="todo-highlight"> tag in debug mode.
+    """
+    if value is None:
+        return ""
+    if is_todo(value):
+        if app.debug:
+            return Markup(f'<mark class="todo-highlight">{escape(value)}</mark>')
+        return ""
+    return str(value)
+
+
 @app.context_processor
 def inject_site_config() -> dict:
     """
@@ -178,6 +207,7 @@ def inject_site_config() -> dict:
     return {
         "site":         SITE_CONFIG,
         "current_year": datetime.date.today().year,
+        "is_todo":      is_todo,
     }
 
 
@@ -231,8 +261,17 @@ def _validate_contact(data: dict) -> list[str]:
     """
     errors: list[str] = []
 
-    name    = (data.get("name")    or "").strip()
-    email   = (data.get("email")   or "").strip()
+    name_raw  = data.get("name")    or ""
+    email_raw = data.get("email")   or ""
+
+    # Reject CR/LF header-injection attempts before stripping whitespace.
+    if "\r" in name_raw or "\n" in name_raw:
+        errors.append("Name cannot contain line breaks.")
+    if "\r" in email_raw or "\n" in email_raw:
+        errors.append("Email address cannot contain line breaks.")
+
+    name    = name_raw.strip()
+    email   = email_raw.strip()
     message = (data.get("message") or "").strip()
 
     # Name
@@ -453,6 +492,7 @@ def contact():
     message = (data.get("message") or "").strip()
 
     # ── 4. Send ───────────────────────────────────────────────
+    # Extract clean values (already validated above).
     try:
         _send_email(name, email, message)
         logger.info("Contact email sent (IP: %s)", ip)
@@ -481,7 +521,9 @@ def contact():
 # ── Health & local SMTP verification ──────────────────────────────────────────
 @app.route("/health")
 def health():
-    """Basic health check + boolean env status (never exposes values)."""
+    """Basic health check + boolean env status (debug mode only; 404 in production)."""
+    if not app.debug:
+        abort(404)
     return jsonify({
         "ok": True,
         "env_set": _env_presence_summary(),
@@ -492,9 +534,11 @@ def health():
 @app.route("/health/smtp")
 def health_smtp():
     """
-    Local diagnostic endpoint to verify SMTP login without sending an email.
+    Local diagnostic endpoint to verify SMTP login without sending an email. (debug only)
     Never logs or returns credentials.
     """
+    if not app.debug:
+        abort(404)
     try:
         _test_smtp_login()
         return jsonify({"ok": True, "smtp": "login_ok"}), 200
@@ -567,5 +611,5 @@ def internal_error(exc):
 # ==============================================================================
 
 if __name__ == "__main__":
-    is_dev = os.getenv("FLASK_ENV", "production") == "development"
+    is_dev = app.debug
     app.run(debug=is_dev, port=5000)
