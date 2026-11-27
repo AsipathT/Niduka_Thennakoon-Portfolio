@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}{{ project.title }} – Niduka Thennakoon{% endblock %}
+{% block content %}
+{#
+  project_detail.html – stub template for /project/<slug>
+  Phase 2B will replace this with the full case-study layout.
+  For now it confirms the route works and all data reaches the template.
+#}
+<section class="section" aria-label="{{ project.title }} case study">
+  <div class="container" style="max-width:860px;">
+
+    <a href="{{ url_for('index') }}#projects" class="btn btn-ghost" style="margin-bottom:2rem;">
+      ← Back to Projects
+    </a>
+
+    <span class="timeline-badge">{{ project.sector }}</span>
+    <h1 style="font-size:clamp(1.75rem,4vw,2.75rem); margin-block:.75rem 0.5rem;">
+      {{ project.title }}
+    </h1>
+    <p style="color:var(--text-secondary); font-size:1.1rem; margin-bottom:2rem;">
+      {{ project.short_desc }}
+    </p>
+
+    <!-- Meta grid -->
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1rem; margin-bottom:2rem;">
+      <div class="skill-category">
+        <p style="font-size:.75rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:.08em;">My Role</p>
+        <p style="font-weight:600;">{{ project.my_role }}</p>
+      </div>
+      <div class="skill-category">
+        <p style="font-size:.75rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:.08em;">Modules</p>
+        <p>{{ project.modules | join(", ") }}</p>
+      </div>
+      <div class="skill-category">
+        <p style="font-size:.75rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:.08em;">Tech Stack</p>
+        <p>{{ project.tech | join(", ") }}</p>
+      </div>
+    </div>
+
+    <!-- What I Did -->
+    <h2 style="font-size:1.25rem; margin-bottom:1rem;">What I Did</h2>
+    <ul style="list-style:disc; padding-left:1.5rem; color:var(--text-secondary); line-height:1.8; margin-bottom:2rem;">
+      {% for item in project.what_i_did %}
+      <li>{{ item }}</li>
+      {% endfor %}
+    </ul>
+
+    <!-- Outcome -->
+    <h2 style="font-size:1.25rem; margin-bottom:.75rem;">Outcome</h2>
+    <p style="color:var(--text-secondary); margin-bottom:2rem;">{{ project.outcome }}</p>
+
+    <!-- Links -->
+    {% if project.github or project.live %}
+    <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+      {% if project.github %}
+      <a href="{{ project.github }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline"
+         aria-label="View {{ project.title }} on GitHub (opens in new tab)">GitHub ↗</a>
+      {% endif %}
+      {% if project.live %}
+      <a href="{{ project.live }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary"
+         aria-label="View {{ project.title }} live (opens in new tab)">Live Demo ↗</a>
+      {% endif %}
+    </div>
+    {% endif %}
+
+  </div>
+</section>
+{% endblock %}

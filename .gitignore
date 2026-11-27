@@ -221,3 +221,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+
+# Local fallback for failed contact form submissions (contains user PII)
+data/messages_failed.jsonl

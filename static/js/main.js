@@ -217,9 +217,9 @@
         statusBox.className   = 'form-status success';
         form.reset();
       } else {
-        const msgs = (json.errors || ['Something went wrong.']).join(' ');
-        statusBox.textContent = msgs;
-        statusBox.className   = 'form-status error';
+        const msg = json.message || (json.errors || ['Something went wrong.']).join(' ');
+        statusBox.textContent = msg;
+        statusBox.className   = json.saved ? 'form-status success' : 'form-status error';
       }
     } catch {
       statusBox.textContent = 'Network error. Please try again.';
