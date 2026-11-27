@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Page Not Found – Niduka Thennakoon{% endblock %}
+{% block content %}
+<section class="error-page section" aria-label="Page not found">
+  <div class="container" style="text-align:center; padding-block: 6rem;">
+    <p style="font-size:5rem; line-height:1;">🔍</p>
+    <h1 style="font-size:clamp(2rem,6vw,4rem); margin-block:.5rem 1rem;">404 – Page Not Found</h1>
+    {% if message %}
+      <p style="color:var(--text-secondary); max-width:520px; margin-inline:auto; margin-bottom:2rem;">{{ message }}</p>
+    {% else %}
+      <p style="color:var(--text-secondary); max-width:520px; margin-inline:auto; margin-bottom:2rem;">
+        That page doesn't exist. It may have been moved, or the URL might be wrong.
+      </p>
+    {% endif %}
+    <a href="{{ url_for('index') }}" class="btn btn-primary">← Back to Home</a>
+  </div>
+</section>
+{% endblock %}

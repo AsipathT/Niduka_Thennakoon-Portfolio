@@ -1,0 +1,227 @@
+{
+  "_comment": "site_config.json – single source of truth for all portfolio content. Edit this file to update text without touching templates.",
+
+  "meta": {
+    "title": "Niduka Thennakoon | Odoo ERP Specialist & Python Developer",
+    "description": "Niduka Thennakoon – Odoo ERP Specialist and Python Developer at Core 48 (Pvt) Ltd. 1.4+ years delivering end-to-end ERP implementations across HR/Payroll, Sales/CRM, and Manufacturing domains.",
+    "og_title": "Niduka Thennakoon | Odoo ERP Specialist & Python Developer",
+    "og_description": "Odoo ERP Specialist & Python Developer based in Sri Lanka. Delivered 3 client ERP implementations across garment manufacturing, higher education, and industrial sectors.",
+    "og_image": "/static/images/og-preview.png",
+    "twitter_card": "summary_large_image",
+    "canonical_url": "TODO: https://your-domain.com",
+    "favicon_initials": "NT"
+  },
+
+  "person": {
+    "name": "Niduka Thennakoon",
+    "first_name": "Niduka",
+    "tagline": "Odoo ERP Specialist & Python Developer",
+    "location": "Bandaragama, Sri Lanka",
+    "email": "nidukavikumasipath@gmail.com",
+    "github_url": "https://github.com/AsipathT",
+    "github_label": "github.com/AsipathT",
+    "linkedin_url": "https://linkedin.com/in/niduka-thennakoon-323055240",
+    "linkedin_label": "linkedin.com/in/niduka-thennakoon-323055240",
+    "cv_path": "files/Niduka_Thennakoon_CV.pdf",
+    "cv_filename": "Niduka_Thennakoon_CV.pdf",
+    "profile_photo": "images/niduka-avatar.jpg",
+    "profile_photo_placeholder": "images/placeholder-avatar.jpg",
+    "languages": ["English (Professional working)", "Sinhala (Native)"]
+  },
+
+  "hero": {
+    "greeting": "Hi, I'm",
+    "typing_roles": [
+      "Odoo Developer",
+      "ERP Implementation Specialist",
+      "Python Backend Engineer"
+    ],
+    "pitch": "Odoo ERP Specialist and Python Developer at Core 48 (Pvt) Ltd, Sri Lanka. I deliver end-to-end ERP implementations that turn complex business processes into streamlined, scalable systems."
+  },
+
+  "stats": [
+    { "value": "1.4+", "label": "Years Experience",          "icon": "🗓️" },
+    { "value": "3",    "label": "Client Implementations",    "icon": "🏢" },
+    { "value": "3",    "label": "Functional Domains",        "icon": "⚙️" }
+  ],
+
+  "about": {
+    "story": [
+      "I joined Core 48 (Pvt) Ltd as a Software Engineer Intern in May 2025 and was promoted to Associate Software Engineer within six months — a reflection of the responsibility I took on from day one.",
+      "Since then, I've led and contributed to three real-world Odoo ERP implementations across the garment manufacturing, higher education, and industrial sectors. My work spans the full delivery lifecycle: requirement gathering, module configuration, Python and XML customisation, UAT, end-user training, and post-implementation support.",
+      "Alongside my professional work, I am studying for my BSc (Hons) in Information Technology at SLIIT, keeping my foundations strong while applying them in production environments every day."
+    ],
+    "quick_facts": [
+      { "label": "📍 Location",   "value": "Bandaragama, Sri Lanka" },
+      { "label": "💼 Role",       "value": "Associate Software Engineer – Core 48 (Pvt) Ltd" },
+      { "label": "🎓 Degree",     "value": "BSc (Hons) IT – SLIIT (in progress)" },
+      { "label": "⚙️ Speciality", "value": "Odoo ERP · Python · PostgreSQL" },
+      { "label": "🌐 Languages",  "value": "English (Professional), Sinhala (Native)" },
+      { "label": "🔎 Status",     "value": "Open to ERP consulting & Python opportunities" }
+    ]
+  },
+
+  "skills": [
+    {
+      "category": "Odoo / ERP",
+      "icon": "⚙️",
+      "items": [
+        "Odoo Community & Enterprise",
+        "Module configuration",
+        "Business process analysis",
+        "Requirement gathering",
+        "Functional Requirements Specification (FRS)",
+        "User Acceptance Testing (UAT)",
+        "Data migration & validation",
+        "Workflow customisation"
+      ]
+    },
+    {
+      "category": "Odoo Modules",
+      "icon": "🧩",
+      "items": [
+        "Sales & CRM",
+        "Inventory & Purchase",
+        "HR & Payroll",
+        "Accounting (fundamentals)",
+        "Manufacturing",
+        "Student/Library Management (custom)"
+      ]
+    },
+    {
+      "category": "Backend & Dev",
+      "icon": "🐍",
+      "items": [
+        "Python",
+        "Odoo ORM",
+        "XML views & QWeb",
+        "Odoo module development",
+        "PostgreSQL"
+      ]
+    },
+    {
+      "category": "Cloud & Networking",
+      "icon": "☁️",
+      "items": [
+        "AWS SimuLearn – Highly Available Web Applications",
+        "Computer networking",
+        "High-availability architecture concepts"
+      ]
+    },
+    {
+      "category": "Delivery & Collaboration",
+      "icon": "🤝",
+      "items": [
+        "End-user training & demos",
+        "User manual authoring",
+        "Post-implementation support",
+        "Agile team collaboration",
+        "Direct client communication"
+      ]
+    },
+    {
+      "category": "Tools",
+      "icon": "🛠️",
+      "items": [
+        "Git & GitHub",
+        "Bug tracking"
+      ]
+    }
+  ],
+
+  "experience": [
+    {
+      "type": "work",
+      "title": "Associate Software Engineer",
+      "org": "Core 48 (Pvt) Ltd",
+      "org_location": "Horana, Sri Lanka",
+      "date_start": "Nov 2025",
+      "date_end": "Present",
+      "bullets": [
+        "Lead Odoo ERP implementations across multiple client domains (HR/Payroll, Sales/CRM, Manufacturing).",
+        "Conduct requirement-gathering workshops and produce Functional Requirements Specifications.",
+        "Customise Odoo modules using Python and XML to meet client-specific business rules.",
+        "Manage version migrations and data migration/validation processes.",
+        "Deliver UAT sessions, end-user training, and post-implementation support.",
+        "Collaborate directly with clients throughout the full delivery lifecycle."
+      ]
+    },
+    {
+      "type": "work",
+      "title": "Software Engineer Intern",
+      "org": "Core 48 (Pvt) Ltd",
+      "org_location": "Horana, Sri Lanka",
+      "date_start": "May 2025",
+      "date_end": "Nov 2025",
+      "bullets": [
+        "Contributed to Odoo ERP implementation projects under senior guidance.",
+        "Assisted with module configuration, requirement gathering, and UAT.",
+        "Gained hands-on experience with Odoo Community/Enterprise in production environments.",
+        "On-the-job training in Odoo implementation methodology at Core 48."
+      ]
+    },
+    {
+      "type": "education",
+      "title": "BSc (Hons) in Information Technology",
+      "org": "Sri Lanka Institute of Information Technology (SLIIT)",
+      "org_location": "Sri Lanka",
+      "date_start": "TODO: add start year",
+      "date_end": "Present",
+      "bullets": [
+        "Studying software engineering, database systems, networking, and IT management.",
+        "TODO: Add GPA or relevant modules/achievements if desired."
+      ]
+    }
+  ],
+
+  "certifications": [
+    {
+      "title": "AWS SimuLearn: Highly Available Web Applications",
+      "issuer": "Amazon Web Services (SimuLearn)",
+      "year": "TODO: add year",
+      "credential_url": ""
+    },
+    {
+      "title": "Programming Foundations: Databases",
+      "issuer": "TODO: add issuing platform/institution",
+      "year": "TODO: add year",
+      "credential_url": ""
+    },
+    {
+      "title": "Python for Beginners",
+      "issuer": "TODO: add issuing platform/institution",
+      "year": "TODO: add year",
+      "credential_url": ""
+    },
+    {
+      "title": "Introduction to C",
+      "issuer": "TODO: add issuing platform/institution",
+      "year": "TODO: add year",
+      "credential_url": ""
+    },
+    {
+      "title": "The Fundamentals of Digital Marketing",
+      "issuer": "TODO: add issuing platform/institution (Google?)",
+      "year": "TODO: add year",
+      "credential_url": ""
+    },
+    {
+      "title": "Odoo Implementation Training (On-the-job)",
+      "issuer": "Core 48 (Pvt) Ltd",
+      "year": "2025",
+      "credential_url": ""
+    }
+  ],
+
+  "contact": {
+    "intro": "Have an ERP project in mind, want to discuss Odoo, or just want to connect? Send me a message and I'll reply as soon as possible.",
+    "email": "nidukavikumasipath@gmail.com",
+    "github_url": "https://github.com/AsipathT",
+    "linkedin_url": "https://linkedin.com/in/niduka-thennakoon-323055240",
+    "_privacy_note": "Phone number is intentionally omitted from all public-facing pages."
+  },
+
+  "footer": {
+    "copy": "Niduka Thennakoon. Built with Flask."
+  }
+}
