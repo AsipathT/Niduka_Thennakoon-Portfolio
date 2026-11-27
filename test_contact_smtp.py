@@ -8,7 +8,7 @@ import sys
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
-os.environ["FLASK_ENV"] = "development"
+os.environ["FLASK_DEBUG"] = "1"
 os.environ.setdefault("SECRET_KEY", "test-secret")
 
 import app as portfolio_app
@@ -164,6 +164,63 @@ try:
         with portfolio_app.app.test_client() as c:
             r429 = c.post("/contact", json=VALID_PAYLOAD)
         check("Rate limit returns 429", r429.status_code == 429)
+
+    print("\n[8] Hardening: /health debug gate, CR/LF rejection, TODO helper, ProxyFix")
+    orig_debug = portfolio_app.app.debug
+    try:
+        # 8a. /health and /health/smtp return 404 when app.debug is False
+        portfolio_app.app.debug = False
+        with portfolio_app.app.test_client() as c:
+            check("/health returns 404 when debug=False", c.get("/health").status_code == 404)
+            check("/health/smtp returns 404 when debug=False", c.get("/health/smtp").status_code == 404)
+
+        # 8b. TODO-hiding helper: hidden in production, highlighted in debug
+        check("is_todo detects TODO prefix", portfolio_app.is_todo("TODO: add GPA") is True)
+        check("is_todo ignores normal text", portfolio_app.is_todo("Core 48") is False)
+        check("render_todo hides TODO when debug=False", portfolio_app.render_todo("TODO: add GPA") == "")
+        check("render_todo keeps normal text when debug=False", portfolio_app.render_todo("Core 48") == "Core 48")
+
+        portfolio_app.app.debug = True
+        highlighted = str(portfolio_app.render_todo("TODO: add GPA"))
+        check("render_todo highlights TODO when debug=True",
+              "todo-highlight" in highlighted and "TODO: add GPA" in highlighted)
+    finally:
+        portfolio_app.app.debug = orig_debug
+
+    # 8c. CR/LF injection rejected in name and email (400)
+    reset_rate_limit()
+    with portfolio_app.app.test_client() as c:
+        r_crlf_name = c.post("/contact", json={
+            "name": "Niduka\r\nBcc: evil@example.com",
+            "email": "sender@example.com",
+            "message": "Valid message length here.",
+        })
+        r_crlf_email = c.post("/contact", json={
+            "name": "Niduka",
+            "email": "sender@example.com\nBcc: evil@example.com",
+            "message": "Valid message length here.",
+        })
+    check("CR/LF in name returns 400", r_crlf_name.status_code == 400)
+    check("CR/LF in email returns 400", r_crlf_email.status_code == 400)
+
+    # 8d. ProxyFix enabled when TRUST_PROXY=true
+    from werkzeug.middleware.proxy_fix import ProxyFix
+    check("ProxyFix disabled by default (TRUST_PROXY!=true)",
+          not isinstance(portfolio_app.app.wsgi_app, ProxyFix))
+
+    # Test ProxyFix behavior via reload with TRUST_PROXY=true
+    import importlib
+    with patch.dict(os.environ, {"TRUST_PROXY": "true"}, clear=False):
+        importlib.reload(portfolio_app)
+        check("ProxyFix enabled when TRUST_PROXY=true",
+              isinstance(portfolio_app.app.wsgi_app, ProxyFix))
+        with portfolio_app.app.test_client() as c:
+            with portfolio_app._rate_lock:
+                portfolio_app._rate_store["203.0.113.55"] = [portfolio_app.time.monotonic()] * portfolio_app.RATE_LIMIT_MAX
+            r_proxy = c.post("/contact", json=VALID_PAYLOAD, headers={"X-Forwarded-For": "203.0.113.55"})
+            check("ProxyFix uses X-Forwarded-For IP for rate limiting", r_proxy.status_code == 429)
+    # Reload back to default
+    importlib.reload(portfolio_app)
 
 finally:
     # Restore fallback file state
